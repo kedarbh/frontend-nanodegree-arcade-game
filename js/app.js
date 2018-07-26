@@ -2,10 +2,12 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.sprite = 'images/enemy-bug.png';
+    this.x = x;
+    this.y = y;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -14,7 +16,23 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed*dt;
+    this.onCollision();
 };
+
+//ref: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+Enemy.prototype.onCollision = function() {
+    let playerLoc = { x: player.x, y: player.y, width: 50, height: 50};
+    let enemyLoc = { x: this.x, y: this.y, width: 50, height: 50};
+// check the collision and decrease life if true
+      if (playerLoc.x < enemy.x + enemyLoc.width &&
+        playerLoc.y < enemy.y + enemyLoc.height &&
+        playerLoc.x + playerLoc.width > enemyLoc.x &&
+        playerLoc.y + playerLoc.height > enemyLoc.y){
+        player.reset();
+        lives--;
+    }
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -24,11 +42,64 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+let Player = function(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    //display a player sprite
+    this.sprite = 'images/char-boy.png';
+}
+
+// @description update the position of player to keep withn the boundaries
+
+Player.prototype.update = function() {
+    if(this.x < 0) {
+        this.x = 0;
+    }
+    if(this.x > 400) {
+        this.x = 400;
+    }
+    if(this.y < 0) {
+        this.y = 0;
+    }
+    if(this.y > 400) {
+        this.y = 400;
+    }
+
+};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// @description: handle the key input from player to move the character
+Player.prototype.handleInput = function(keyPressed) {
+    switch (keyPressed) {
+        case 'left':
+            this.x -= 101;
+            break;
+
+        case 'right':
+            this.x += 101;
+            break;
+
+        case 'up':
+            this.y -= 83;
+            break;
+
+        case 'down':
+            this.y += 83;
+            break;
+    }
+};
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
+let allEnemies = [];
+let player = new Player(200,400,50);
 
 
 
