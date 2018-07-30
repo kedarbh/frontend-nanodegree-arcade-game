@@ -19,8 +19,8 @@ body {
 }
 
 .score-panel #lives {
-    margin: 0;
-    padding: 0;
+    /*margin: 0;
+    padding: 0;*/
     display: inline-block;
     margin: 0 5px 0 0;
     color: #ff0000;
@@ -28,7 +28,8 @@ body {
 
 .score-panel #lives li {
     list-style: none;
-    display: inline-block;
+    display: inline;
+    padding-right: 2px;
 }
 
 .score-panel .score {

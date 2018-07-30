@@ -118,16 +118,26 @@ Player.prototype.handleInput = function(keyPressed) {
 
 function endGame() {
     if(life === 0){
-    allEnemies = [];
     gameInfo.innerHTML = `
-    <h1 class="heading-one">GAME OVER</h1>
-    <p></p>
-    <p class="text">Your score is ${score}.</p>
-    <button class="play-again" onclick="restart()">Play Again</button>
-    `;
-    messageBox.classList.remove('hidden');
+        <h1 class="heading-one">GAME OVER</h1>
+        <p></p>
+        <p class="text">Your score is ${score}.</p>
+        <button class="play-again" onclick="restart()">Play Again</button>
+        `;
+        messageBox.classList.remove('hidden');
     }
 
+}
+
+function restart(){
+    player.playerReset();
+    messageBox.classList.add('hidden');
+    score = 0;
+    life = 3;
+    for (let i = 0; i < life; i++) {
+        lives.insertAdjacentHTML( 'afterbegin', '<li><i class="fas fa-heart"></i></li>');
+    }
+    scoreCounts.innerHTML = `Score: 0`;
 }
 
 // Now instantiate your objects.
