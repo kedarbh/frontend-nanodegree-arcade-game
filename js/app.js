@@ -5,7 +5,7 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
+    this.x = -100;
     this.y = Math.floor((Math.random() * 3) + 1)*70;
     this.speed = Math.floor((Math.random() * 3) + 1)*150;
 };
@@ -18,8 +18,10 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed*dt;
     //if x value is greater takes time to reach the canvas so changed it to nearest values.
+    //also change the location of bug after resetting
     if (this.x > 600) {
         this.x = -200;
+        this.y = Math.floor((Math.random() * 3) + 1)*70;
     }
     this.onCollision();
 };
@@ -64,7 +66,7 @@ Player.prototype.update = function() {
     }
     if(this.y < 0) {
         player.addScore();
-        player.playerReset();
+        setTimeout(() => {player.playerReset(),1000});
     }
     if(this.y > 400) {
         this.y = 400;
@@ -140,7 +142,7 @@ function restart(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-let allEnemies = [new Enemy(),new Enemy(),new Enemy(),new Enemy()];
+let allEnemies = [new Enemy(), new Enemy(), new Enemy()];
 let player = new Player(200,400,50);
 let score = 0;
 let life = 3;
