@@ -1,5 +1,6 @@
+'use strict';
 // Enemies our player must avoid
-var Enemy = function() {
+let Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     // The image/sprite for our enemies, this uses
@@ -48,13 +49,21 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-let Player = function(x, y, speed) {
-    this.x = x;
-    this.y = y;
-    this.speed = speed;
-    //display a player sprite
-    this.sprite = 'images/char-boy.png';
+class Player {
+    constructor(x,y,speed) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.sprite = 'images/char-boy.png';
+    }
 }
+// let Player = function(x, y, speed) {
+//     this.x = x;
+//     this.y = y;
+//     this.speed = speed;
+//     //display a player sprite
+//     this.sprite = 'images/char-boy.png';
+// }
 
 // @description update the position of player to keep withn the boundaries
 Player.prototype.update = function() {
@@ -65,8 +74,8 @@ Player.prototype.update = function() {
         this.x = 400;
     }
     if(this.y < 0) {
-        player.addScore();
-        setTimeout(() => {player.playerReset(),1000});
+        this.addScore();
+        setTimeout(() => {this.playerReset(),1000});
     }
     if(this.y > 400) {
         this.y = 400;
@@ -153,7 +162,7 @@ let gameInfo = document.querySelector('.popup');
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    let allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
