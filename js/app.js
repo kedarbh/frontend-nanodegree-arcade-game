@@ -6,11 +6,8 @@ var Enemy = function() {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
-    // this.y = y;
-    // this.speed = speed;
     this.y = Math.floor((Math.random() * 3) + 1)*70;
     this.speed = Math.floor((Math.random() * 3) + 1)*150;
-
 };
 
 // Update the enemy's position, required method for game
@@ -118,15 +115,14 @@ Player.prototype.handleInput = function(keyPressed) {
 
 function endGame() {
     if(life === 0){
-    gameInfo.innerHTML = `
-        <h1 class="heading-one">GAME OVER</h1>
-        <p></p>
-        <p class="text">Your score is ${score}.</p>
-        <button class="play-again" onclick="restart()">Play Again</button>
-        `;
+        gameInfo.innerHTML = `
+            <h1 class="heading-one">GAME OVER</h1>
+            <p></p>
+            <p class="text">Your score is ${score}.</p>
+            <button class="play-again" onclick="restart()">Play Again</button>
+            `;
         messageBox.classList.remove('hidden');
     }
-
 }
 
 function restart(){
@@ -144,18 +140,13 @@ function restart(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-
 let allEnemies = [new Enemy(),new Enemy(),new Enemy(),new Enemy()];
-
 let player = new Player(200,400,50);
 let score = 0;
 let life = 3;
 let scoreCounts = document.querySelector('.score');
 let messageBox = document.querySelector('.complete-message');
 let gameInfo = document.querySelector('.popup');
-
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
